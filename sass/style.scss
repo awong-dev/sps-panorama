@@ -1,0 +1,131 @@
+$mdc-theme-primary: #fdc744;
+$mdc-theme-secondary: #303f9f;
+
+@import "@material/button/mdc-button";
+@import "@material/card/mdc-card";
+@import "@material/checkbox/mdc-checkbox";
+@import "@material/drawer/mdc-drawer";
+@import "@material/form-field/mdc-form-field";
+@import "@material/layout-grid/mdc-layout-grid";
+@import "@material/list/mdc-list";
+@import "@material/select/mdc-select";
+@import "@material/theme/mdc-theme";
+@import "@material/toolbar/mdc-toolbar.scss";
+@import "@material/typography/mdc-typography";
+
+.login-bar {
+  --mdc-theme-text-primary-on-primary: var(--mdc-theme-text-primary-on-dark);
+}
+
+.login-button {
+  @include mdc-button-filled-accessible($mdc-theme-primary)
+}
+
+.card {
+  margin: 1ex;
+}
+
+.chart {
+  border-style: double;
+  padding: 1ex;
+  background-color: LightGrey;
+}
+
+table.stats-table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+.stats-table tbody > tr > td {
+  border: 1px solid black;
+  padding: 0.2rem;
+}
+
+.graph-svg-component {
+}
+
+.nmn-test-body {
+//  display: flex;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+.nmn-test-flex-root {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+}
+
+.nmn-test-flex-content {
+  display: flex;
+  height: 100%;
+}
+
+.nmn-test-nav {
+  flex: 1 auto;
+}
+
+.nmn-test-main {
+  flex: 2 auto;
+  overflow: scroll;
+}
+
+.nmn-test-dichotomy-root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.nmn-test-dichotomy-content {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.column {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nmn-test-dichotomy-group1 {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.nmn-test-dichotomy-group2 {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.nmn-test-dichotomy-group1-header {
+  flex-shrink: 0;
+  display: inline-flex;
+  h2 {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.nmn-test-dichotomy-group2-header {
+  flex-shrink: 0;
+  display: inline-flex;
+  h2 {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.detail-box {
+  overflow-wrap: break-word;
+}
+
+.details {
+  margin-right: 1.5rem;
+}

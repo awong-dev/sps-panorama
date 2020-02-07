@@ -1,0 +1,8 @@
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if request.auth != null && ("read-" + request.auth.uid) in resource.metadata.keys();
+      allow write: if false;
+    }
+  }
+}
