@@ -1,6 +1,7 @@
 $mdc-theme-primary: #fdc744;
 $mdc-theme-secondary: #303f9f;
 
+@import "@material/theme/mdc-theme";
 @import "@material/button/mdc-button";
 @import "@material/card/mdc-card";
 @import "@material/checkbox/mdc-checkbox";
@@ -9,7 +10,6 @@ $mdc-theme-secondary: #303f9f;
 @import "@material/layout-grid/mdc-layout-grid";
 @import "@material/list/mdc-list";
 @import "@material/select/mdc-select";
-@import "@material/theme/mdc-theme";
 @import "@material/toolbar/mdc-toolbar.scss";
 @import "@material/typography/mdc-typography";
 
@@ -44,7 +44,7 @@ table.stats-table {
 .graph-svg-component {
 }
 
-.nmn-test-body {
+.app-body {
 //  display: flex;
   padding: 0;
   margin: 0;
@@ -52,7 +52,7 @@ table.stats-table {
   min-height: 100%;
 }
 
-.nmn-test-flex-root {
+.app-flex-root {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -61,27 +61,27 @@ table.stats-table {
   height: 100vh;
 }
 
-.nmn-test-flex-content {
+.app-flex-content {
   display: flex;
   height: 100%;
 }
 
-.nmn-test-nav {
+.app-nav {
   flex: 1 auto;
 }
 
-.nmn-test-main {
+.app-main {
   flex: 2 auto;
   overflow: scroll;
 }
 
-.nmn-test-dichotomy-root {
+.app-dichotomy-root {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-.nmn-test-dichotomy-content {
+.app-dichotomy-content {
   display: flex;
   height: 100%;
   overflow: hidden;
@@ -94,17 +94,17 @@ table.stats-table {
   flex-direction: column;
 }
 
-.nmn-test-dichotomy-group1 {
+.app-dichotomy-group1 {
   flex: 1 1 auto;
   overflow-y: auto;
 }
 
-.nmn-test-dichotomy-group2 {
+.app-dichotomy-group2 {
   flex: 1 1 auto;
   overflow-y: auto;
 }
 
-.nmn-test-dichotomy-group1-header {
+.app-dichotomy-group1-header {
   flex-shrink: 0;
   display: inline-flex;
   h2 {
@@ -113,7 +113,7 @@ table.stats-table {
   }
 }
 
-.nmn-test-dichotomy-group2-header {
+.app-dichotomy-group2-header {
   flex-shrink: 0;
   display: inline-flex;
   h2 {
