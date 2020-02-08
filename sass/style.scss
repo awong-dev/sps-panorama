@@ -26,49 +26,48 @@ $mdc-theme-secondary: #005daa;
   padding: 0px 5px 0px 5px;
 }
 
+.chart-card {
+  width: 400px;
+}
+
 .chart {
   border-style: double;
   padding: 1ex;
   background-color: LightGrey;
 }
 
-table.stats-table {
-  border-spacing: 0px;
-  border-collapse: collapse;
-}
-
-.stats-table tbody > tr > td {
-  border: 1px solid black;
-  padding: 0.2rem;
-}
-
-.graph-svg-component {
-}
-
-.app-body {
-//  display: flex;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  min-height: 100%;
-}
-
 .app-flex-root {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  height: 100vh;
+}
+
+.title-box {
+  margin: 4px 1em 4px 1em;
+}
+
+.title {
+  margin: 0 0 0 0;
+}
+
+.title-details {
+  font-size: 12px;
+  margin: 4px 1em 4px 1em;
+}
+
+label {
+  margin-bottom: 0.5ex;
+  margin-right: 0.5ex;
+  margin-left: 1em;
+  padding-right: 0.5ex;
 }
 
 .app-flex-content {
   display: flex;
+  flex-wrap: wrap;
   height: 100%;
-}
-
-.app-nav {
-  flex: 1 auto;
 }
 
 .app-main {
@@ -76,55 +75,11 @@ table.stats-table {
   overflow: scroll;
 }
 
-.app-dichotomy-root {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.app-dichotomy-content {
-  display: flex;
-  height: 100%;
-  overflow: hidden;
-}
-
 .column {
   height: 100%;
   width: 50%;
   display: flex;
   flex-direction: column;
-}
-
-.app-dichotomy-group1 {
-  flex: 1 1 auto;
-  overflow-y: auto;
-}
-
-.app-dichotomy-group2 {
-  flex: 1 1 auto;
-  overflow-y: auto;
-}
-
-.app-dichotomy-group1-header {
-  flex-shrink: 0;
-  display: inline-flex;
-  h2 {
-    text-align: center;
-    width: 100%;
-  }
-}
-
-.app-dichotomy-group2-header {
-  flex-shrink: 0;
-  display: inline-flex;
-  h2 {
-    text-align: center;
-    width: 100%;
-  }
-}
-
-.detail-box {
-  overflow-wrap: break-word;
 }
 
 .details {

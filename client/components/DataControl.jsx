@@ -29,33 +29,30 @@ function DataControl({data, report_type, survey, subjects, onChange}) {
 
   const subject_choices = [];
   subjects.forEach((subject, idx) => {
+    const name = `choice-${idx}`;
     subject_choices.push(
-      <li className="mdc-list-item">
-        Subject {idx+1}:
-        <select key={`choice-${idx}`} data-type="subject" data-ordinal={idx} value={subject} onChange={onChange}>
+      <span>
+        <label htmlFor={name}>Series {idx+1}</label>
+        <select key={name} name={name} data-type="subject" data-ordinal={idx} value={subject} onChange={onChange}>
             {subject_options}
         </select>
-      </li>
+      </span>
     );
   });
 
   return (
-    <ul className="mdc-list">
-      <li>
-        <label htmlFor="report-type">Report Type:</label>
-        <select name="report-type" value={report_type} data-type="report" onChange={onChange}>
-            {report_type_options}
-        </select>
-      </li>
-      <li>
-        <label htmlFor="survey">Survey:</label>
-        <select name="survey" value={survey} data-type="survey" onChange={onChange}>
-            {survey_options}
-        </select>
-      </li>
-      <hr />
+    <div>
+      <label htmlFor="report-type">Report Type:</label>
+      <select name="report-type" value={report_type} data-type="report" onChange={onChange}>
+          {report_type_options}
+      </select>
+      <label htmlFor="survey">Survey:</label>
+      <select name="survey" value={survey} data-type="survey" onChange={onChange}>
+          {survey_options}
+      </select>
+      <br />
       {subject_choices}
-    </ul>
+    </div>
   );
 }
 

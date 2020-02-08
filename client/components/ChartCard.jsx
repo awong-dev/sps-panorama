@@ -2,7 +2,7 @@ import React from 'react';
 import Measure from 'react-measure'
 
 const ChartCard = ({children, title, subtitle, id, onResize}) => (
-  <div id={id} className="card mdc-card mdc-theme--primary-bg mdc-card--theme-dark">
+  <div id={id} className="card chart-card mdc-card mdc-theme--primary-bg mdc-card--theme-dark">
     <section className="mdc-card__primary">
       <h4 className="mdc-card__subtitle-small">{title}</h4>
     </section>

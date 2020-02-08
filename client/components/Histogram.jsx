@@ -79,7 +79,7 @@ class Histogram extends React.Component {
     return (
       <ChartCard
         title={this.state.title}
-        onResize={(contentRect) => this.setState({width: contentRect.bounds.width})}>
+        onResize={(contentRect) => this.setState({width: contentRect.bounds.width - 10})}>
         <div id={this.state.id} ref={(r) => this.chartRef = r} />
       </ChartCard>
     );

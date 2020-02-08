@@ -43,8 +43,16 @@ class App extends React.Component {
     fetch("/student-survey.json")
     .then(response => response.json())
     .then(data => {
-      this.setState({
-        reports: data['reports'] });
+      const new_state = {
+        reports: data['reports'],
+        selected_report_type: Object.keys(data['reports'])[1],
+        selected_subjects: [...this.initial_selected_subjects]
+      };
+      new_state.selected_survey = Object.keys(new_state.reports[new_state.selected_report_type])[1];
+      const subjects = Object.keys(new_state.reports[new_state.selected_report_type][new_state.selected_survey]);
+      new_state.selected_subjects[0] = subjects[0];
+      new_state.selected_subjects[1] = subjects[1];
+      this.setState(new_state);
     });
   }
 
@@ -131,22 +139,30 @@ class App extends React.Component {
   render() {
     const graphs = this.makeGraphs(this.state.reports);
     return (
-      <div className="app-flex-root">
-        <div className="app-flex-content">
-          <nav className="mdc-drawer mdc-typography app-nav">
-            <DataControl
-              data={this.state.reports}
-              report_type={this.state.selected_report_type}
-              survey={this.state.selected_survey}
-              subjects={this.state.selected_subjects}
-              onChange={this.handleChange}
-              />
-          </nav>
-          <main className="app-main">
-            {graphs}
-          </main>
+      <main className="app-main">
+        <header className="mdc-toolbar mdc-toolbar--fixed login-bar">
+          <div className="title-box">
+            <h4 className="title">Seattle Public Schools Panorama Comparison Tool, 2019 data</h4>
+          </div>
+          <DataControl
+            data={this.state.reports}
+            report_type={this.state.selected_report_type}
+            survey={this.state.selected_survey}
+            subjects={this.state.selected_subjects}
+            onChange={this.handleChange}
+          />
+        </header>
+        <div className=" mdc-toolbar-fixed-adjust">
+          <section className="title-details">
+              Data taken from the <a href="https://www.seattleschools.org/district/district_scorecards/school_surveys">SPS Panorama</a> site. Graphs are in pecentages. Hover over data series for population size. When multiple series are selected, graphs are sorted to show questions with *most different* responses first.
+          </section>
+          <div className="app-flex-root">
+            <div className="app-flex-content">
+                  {graphs}
+              </div>
+          </div>
         </div>
-      </div>
+      </main>
     );
   }
 }
