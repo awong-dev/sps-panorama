@@ -1,7 +1,6 @@
 {
   "hosting": {
     "public": "public",
-    "generated": "build/generated",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -13,8 +12,5 @@
         "destination": "/index.html"
       }
     ]
-  },
-  "storage": {
-    "rules": "storage.rules"
   }
 }

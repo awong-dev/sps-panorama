@@ -1,7 +1,6 @@
 import React from 'react';
 import Highcharts from 'highcharts'
 import ChartCard from './ChartCard'
-import Checkbox from './Checkbox'
 
 function DataControl({data, report_type, survey, subjects, onChange}) {
   if (!data) {

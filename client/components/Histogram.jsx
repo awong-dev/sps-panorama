@@ -18,6 +18,7 @@ class Histogram extends React.Component {
     };
 
     this.drawChart = this.drawChart.bind(this);
+    this.getChartOptions = this.getChartOptions.bind(this);
     this.getSeries = this.getSeries.bind(this);
   }
 
@@ -25,25 +26,29 @@ class Histogram extends React.Component {
     this.drawChart();
   }
 
+  getChartOptions() {
+    return {
+      title: { text: "" },
+      xAxis: {
+        title: { text: this.props.data.xlabel },
+        categories: this.props.data.categories
+      },
+      yAxis: {
+        title: { text: this.props.data.ylabel }
+      }
+    };
+  }
+
   drawChart() {
-    this.chart = Highcharts.chart(this.state.id, {
-	 title: { text: this.props.title },
-	 xAxis: {
-	   title: { text: this.props.data.xlabel },
-	   categories: this.props.data.categories
-	 },
-	 yAxis: {
-	   title: { text: this.props.data.ylabel },
-        max: 60
-	 },
-	 plotOptions: {
+    const chart_options = this.getChartOptions();
+    chart_options.plotOptions = {
 	   column: {
 		pointPadding: 0,
 		shadow: false
 	   }
-	 },
-      series: this.getSeries()
-    });
+	 };
+    chart_options.series = this.getSeries();
+    this.chart = Highcharts.chart(this.state.id, chart_options);
   }
 
   getSeries() {
@@ -66,16 +71,7 @@ class Histogram extends React.Component {
           this.chart.series[idx].update(s, false);
         }
       });
-      this.chart.update({
-        title: { text: this.props.title },
-        xAxis: {
-          title: { text: this.props.data.xlabel },
-          categories: this.props.data.categories
-        },
-        yAxis: {
-          title: { text: this.props.data.ylabel }
-        }
-      });
+      this.chart.update(this.getChartOptions());
     }, 100);
   }
 

@@ -1,5 +1,5 @@
-$mdc-theme-primary: #fdc744;
-$mdc-theme-secondary: #303f9f;
+$mdc-theme-primary: #b0bec5;
+$mdc-theme-secondary: #005daa;
 
 @import "@material/theme/mdc-theme";
 @import "@material/button/mdc-button";
@@ -23,6 +23,7 @@ $mdc-theme-secondary: #303f9f;
 
 .card {
   margin: 1ex;
+  padding: 0px 5px 0px 5px;
 }
 
 .chart {

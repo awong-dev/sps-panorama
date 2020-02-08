@@ -48,6 +48,21 @@ class App extends React.Component {
     });
   }
 
+  calculateDiffScore(series) {
+    let score = 0;
+    const to_process = [...series];
+    let cur  = undefined;
+    while ((cur = to_process.shift()) !== undefined) {
+      to_process.forEach(e => {
+        for (let i = 0; i < cur.data.length; i++) {
+          const diff = cur.data[i] - e.data[i];
+          score += diff * diff;
+        }
+      });
+    }
+    return score;
+  }
+
   makeGraphs(reports) {
     const graphs = [];
     if (reports === null) {
@@ -94,11 +109,21 @@ class App extends React.Component {
         });
       });
 
+      const sorted_questions = [];
       for (let [question, data] of Object.entries(all_question_data)) {
-        graphs.push(
-          <Histogram key={question} data={data} title={question} />
-        );
+        sorted_questions.push({
+          question,
+          data,
+          difference_score: this.calculateDiffScore(data.series)
+        });
       }
+      sorted_questions.sort((a,b) => b.difference_score - a.difference_score);
+
+      sorted_questions.forEach( q => {
+        graphs.push(
+          <Histogram key={q.question} data={q.data} title={q.question} />
+        );
+      });
     }
     return graphs;
   }
@@ -107,8 +132,8 @@ class App extends React.Component {
     const graphs = this.makeGraphs(this.state.reports);
     return (
       <div className="app-flex-root">
-        <div className="app-flex-content mdc-toolbar-fixed-adjust">
-          <nav className="mdc-drawer mdc-permanent-drawer mdc-typography app-nav">
+        <div className="app-flex-content">
+          <nav className="mdc-drawer mdc-typography app-nav">
             <DataControl
               data={this.state.reports}
               report_type={this.state.selected_report_type}
