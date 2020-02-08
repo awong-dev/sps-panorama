@@ -56,16 +56,16 @@ class App extends React.Component {
     });
   }
 
-  calculateDiffScore(series) {
+  calculateDistictivenessScore(series) {
     let score = 0;
     const to_process = [...series];
-    const num_elements = to_process.length;
+    const num_series = to_process.length;
     let cur  = undefined;
     while ((cur = to_process.shift()) !== undefined) {
       to_process.forEach(e => {
         for (let i = 0; i < cur.data.length; i++) {
           const diff = cur.data[i] - e.data[i];
-          score += (diff * diff)/num_elements;
+          score += Math.abs(diff) / num_series / cur.data.length;
         }
       });
     }
@@ -123,14 +123,14 @@ class App extends React.Component {
         sorted_questions.push({
           question,
           data,
-          difference_score: this.calculateDiffScore(data.series)
+          distinctive_question_score: this.calculateDistictivenessScore(data.series)
         });
       }
-      sorted_questions.sort((a,b) => b.difference_score - a.difference_score);
+      sorted_questions.sort((a,b) => b.distinctive_question_score - a.distinctive_question_score);
 
       sorted_questions.forEach( q => {
         graphs.push(
-          <Histogram key={q.question} data={q.data} title={q.question} diff_score={q.difference_score} />
+          <Histogram key={q.question} data={q.data} title={q.question} diff_score={q.distinctive_question_score} />
         );
       });
     }
