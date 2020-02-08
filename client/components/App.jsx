@@ -140,7 +140,7 @@ class App extends React.Component {
     const graphs = this.makeGraphs(this.state.reports);
     return (
       <main className="app-main">
-        <header className="mdc-toolbar mdc-toolbar--fixed login-bar">
+        <header className="mdc-toolbar login-bar">
           <div className="title-box">
             <h4 className="title">Seattle Public Schools Panorama Comparison Tool, 2019 data</h4>
           </div>
@@ -152,7 +152,7 @@ class App extends React.Component {
             onChange={this.handleChange}
           />
         </header>
-        <div className=" mdc-toolbar-fixed-adjust">
+        <div className="">
           <section className="title-details">
               Data taken from the <a href="https://www.seattleschools.org/district/district_scorecards/school_surveys">SPS Panorama</a> site. Graphs are in pecentages. Hover over data series for population size. When multiple series are selected, graphs are sorted to show questions with *most different* responses first.
           </section>
