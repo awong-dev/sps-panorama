@@ -14,29 +14,18 @@ class Histogram extends React.Component {
     enableUniqueIds(this);
     this.state = {
       id: this.nextUniqueId(),
-      title: `Question`
+      title: props.title
     };
 
     this.drawChart = this.drawChart.bind(this);
+    this.getSeries = this.getSeries.bind(this);
   }
 
   componentDidMount() {
     this.drawChart();
   }
 
-  /*
-  getData() {
-    const question = Object.keys(this.props.values)[3];
-    const values = this.props.values[question];
-    return [
-      enter: [1, 9, 3],
-      now: []
-    ]
-  }
-  */
-
   drawChart() {
-
     this.chart = Highcharts.chart(this.state.id, {
 	 title: { text: this.props.title },
 	 xAxis: {
@@ -52,19 +41,24 @@ class Histogram extends React.Component {
 		shadow: false
 	   }
 	 },
-      series: this.props.data.series.map(d => Object.assign({ type: "column" }, d))
+      series: this.getSeries()
     });
+  }
+
+  getSeries() {
+    return this.props.data.series.map(d => Object.assign({ type: "column" }, d));
   }
 
   componentDidUpdate() {
     clearTimeout(this.chartIsUpdating);
     this.chartIsUpdating = setTimeout(() => {
-      /*
-      const data = this.getData();
-      this.chart.title.update({ text: getTitle(this.props.dataControl.category) });
-      this.chart.series[0].setData(data.enter, false);
-      this.chart.series[1].setData(data.now, true);
-      */
+      const series = this.getSeries();
+      // TODO(awong): Delete later ones.
+      // TODO(awong): Add new ones.
+      series.forEach((s, idx) => {
+        console.log(s, idx);
+        this.chart.series[idx].setData(s.data, true);
+      });
     }, 100);
   }
 

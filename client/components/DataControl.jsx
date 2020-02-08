@@ -3,19 +3,28 @@ import Highcharts from 'highcharts'
 import ChartCard from './ChartCard'
 import Checkbox from './Checkbox'
 
-function DataControl({school1, onSchoolChange, schools}) {
+function DataControl({schoolList, onSchoolChange, schools}) {
   const school_options = [];
+  school_options.push(
+    <option key="default" value=""></option>
+  )
   schools.forEach((school, idx) => school_options.push(
     <option key={idx} value={school}>{school}</option>
   ));
-  return (
-    <ul className="mdc-list">
+  const choices = [];
+  schoolList.forEach((school, idx) => {
+    choices.push(
       <li className="mdc-list-item">
-          Select school.
-        <select value={school1} onChange={onSchoolChange}>
-          {school_options}
+        School {idx+1}:
+        <select key={`choice-${idx}`} data-ordinal={idx} value={school} onChange={onSchoolChange}>
+            {school_options}
         </select>
       </li>
+    );
+  });
+  return (
+    <ul className="mdc-list">
+        {choices}
     </ul>
   );
 }

@@ -11,7 +11,10 @@ class App extends React.Component {
       surveys: ["waiting for data"],
       data: {},
       selected_schools: [
-        "Adams Elementary"
+        "Adams Elementary",
+        "",
+        "",
+        "",
       ]
     };
 
@@ -19,6 +22,9 @@ class App extends React.Component {
   }
 
   handleSchoolChange(event) {
+    const selected_schools = [...this.state.selected_schools];
+    selected_schools[parseInt(event.target.dataset.ordinal)] = event.target.value;
+    this.setState({ selected_schools });
   }
 
   componentDidMount() {
@@ -37,21 +43,27 @@ class App extends React.Component {
     if (values === undefined) {
       graphs.push(<div key="ruh-roh">Data loading. please wait.</div>);
     } else {
-      const school = this.state.selected_schools[0];
-      const school_data = values['School Report']['3-5 Student Survey'][school];
-      const questions = Object.keys(school_data);
-      const question = questions[0];
-      const responses = school_data[question];
       const data = {
-        categories: responses.answers,
         xlabel: 'Rating',
         ylabel: 'Respondents',
         series: []
       };
-      data.series.push({
-        name: school,
-        data: responses.answer_respondents
+      let question = "";
+      this.state.selected_schools.forEach( school => {
+        const school_data = values['School Report']['3-5 Student Survey'][school];
+        if (!school_data) {
+          return;
+        }
+        const questions = Object.keys(school_data);
+        question = questions[0];
+        const responses = school_data[question];
+        data.categories = responses.answers,
+        data.series.push({
+          name: school,
+          data: responses.answer_respondents
+        });
       });
+      console.log(data.series);
       graphs.push(
         <Histogram key="1" data={data} title={question} />
       );
@@ -67,7 +79,7 @@ class App extends React.Component {
         <div className="app-flex-content mdc-toolbar-fixed-adjust">
           <nav className="mdc-drawer mdc-permanent-drawer mdc-typography app-nav">
             <DataControl
-              school1="Adams"
+              schoolList={this.state.selected_schools}
               onSchoolChange={this.handleSchoolChange}
               surveys={this.state.surveys}
               schools={this.state.schools}
