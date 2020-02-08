@@ -59,14 +59,22 @@ class Histogram extends React.Component {
       }
 
       series.forEach((s, idx) => {
-        console.log(s, idx);
         if (idx >= this.chart.series.length) {
           this.chart.addSeries(s, false);
         } else {
           this.chart.series[idx].update(s, false);
         }
       });
-      this.chart.redraw();
+      this.chart.update({
+        title: { text: this.props.title },
+        xAxis: {
+          title: { text: this.props.data.xlabel },
+          categories: this.props.data.categories
+        },
+        yAxis: {
+          title: { text: this.props.data.ylabel }
+        }
+      });
     }, 100);
   }
 
