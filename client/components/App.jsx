@@ -130,7 +130,7 @@ class App extends React.Component {
 
       sorted_questions.forEach( q => {
         graphs.push(
-          <Histogram key={q.question} data={q.data} title={q.question} />
+          <Histogram key={q.question} data={q.data} title={q.question} diff_score={q.difference_score} />
         );
       });
     }

@@ -14,7 +14,6 @@ class Histogram extends React.Component {
     enableUniqueIds(this);
     this.state = {
       id: this.nextUniqueId(),
-      title: props.title
     };
 
     this.drawChart = this.drawChart.bind(this);
@@ -28,7 +27,7 @@ class Histogram extends React.Component {
 
   getChartOptions() {
     return {
-      title: { text: "" },
+      title: { text: `(distictive quest. score = ${Math.round(this.props.diff_score)})` },
       xAxis: {
         title: { text: this.props.data.xlabel },
         categories: this.props.data.categories
@@ -78,7 +77,7 @@ class Histogram extends React.Component {
   render() {
     return (
       <ChartCard
-        title={this.state.title}
+        title={this.props.title}
         onResize={(contentRect) => this.setState({width: contentRect.bounds.width - 10})}>
         <div id={this.state.id} ref={(r) => this.chartRef = r} />
       </ChartCard>
