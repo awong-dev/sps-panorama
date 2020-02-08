@@ -27,7 +27,7 @@ class Histogram extends React.Component {
 
   getChartOptions() {
     return {
-      title: { text: `(distictive quest. score = ${Math.round(this.props.diff_score)})` },
+      title: { text: `(distictive qstn. score = ${Math.round(this.props.diff_score)})` },
       xAxis: {
         title: { text: this.props.data.xlabel },
         categories: this.props.data.categories
