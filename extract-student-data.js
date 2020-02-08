@@ -7,6 +7,8 @@ const reports = {};
 
 const answer_modes = {};
 const answer_texts = {};
+const subject_names = {};
+const surveys = {};
 
 fs.createReadStream(process.argv[2])
   .pipe(csv())
@@ -27,6 +29,8 @@ fs.createReadStream(process.argv[2])
         raw_answer_respondents.push(parseInt(data[`Answer ${i} Respondents`]));
       }
     }
+    surveys[raw_survey] = 1;
+    subject_names[raw_subject_name] = 1;
     // Missing demographic info still.
 
     // Each row is a new question.
@@ -43,7 +47,13 @@ fs.createReadStream(process.argv[2])
     }
   })
   .on('end', () => {
-    console.log(JSON.stringify(reports, null, 2));
+    console.log(JSON.stringify({
+      reports,
+      surveys: Object.keys(surveys),
+      subject_names: Object.keys(subject_names),
+      answer_texts: Object.keys(answer_texts).map(s => JSON.parse(s)),
+      answer_modes: Object.keys(answer_modes)
+    } , null, 2));
 
     // Sanity check print-outs.
     //console.log(JSON.stringify(answer_texts, null, 2));

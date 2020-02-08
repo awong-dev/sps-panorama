@@ -1,44 +1,59 @@
 import React from 'react'
 
-import LoginBar from './LoginBar'
-
-import CorrelationGraph from './CorrelationGraph'
-import DeltaGraph from './DeltaGraph'
 import DataControl from './DataControl'
-import DescriptiveStats from './DescriptiveStats'
-import EnterNowHistogram from './EnterNowHistogram'
-import PairedEnterNowHistogram from './PairedEnterNowHistogram'
-import FrequencyGraph from './FrequencyGraph'
-import VerticalDeltas from './VerticalDeltas'
-
-import SurveyData from '../data/SurveyData'
+import Histogram from './Histogram'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data_control: {
-        school1: null,
-        school2: null,
-        school3: null,
-        school4: null,
-      }
+      schools: ["waiting for data"],
+      surveys: ["waiting for data"],
+      data: {},
+      selected_schools: [
+        "Adams Elementary"
+      ]
     };
 
-    this.survey_data_ref = {};
     this.handleSchoolChange = this.handleSchoolChange.bind(this);
   }
 
   handleSchoolChange(event) {
   }
 
+  componentDidMount() {
+    fetch("/student-survey.json")
+    .then(response => response.json())
+    .then(data => {
+      this.setState({
+        schools: data['subject_names'],
+        surveys: data['surveys'],
+        data });
+    });
+  }
+
   makeGraphs(values) {
     const graphs = [];
     if (values === undefined) {
-      graphs.push(<div key="ruh-roh">Uh oh. Couldn't load data. Are you authorized?</div>);
+      graphs.push(<div key="ruh-roh">Data loading. please wait.</div>);
     } else {
+      const school = this.state.selected_schools[0];
+      const school_data = values['School Report']['3-5 Student Survey'][school];
+      const questions = Object.keys(school_data);
+      const question = questions[0];
+      const responses = school_data[question];
+      const data = {
+        categories: responses.answers,
+        xlabel: 'Rating',
+        ylabel: 'Respondents',
+        series: []
+      };
+      data.series.push({
+        name: school,
+        data: responses.answer_respondents
+      });
       graphs.push(
-        <div>Graph here</div>
+        <Histogram key="1" data={data} title={question} />
       );
     }
     return graphs;
@@ -46,10 +61,7 @@ class App extends React.Component {
 
   render() {
     let graphs = (<div>Uh oh. Couldn't load data. Are you authorized?</div>);
-    if (this.state.survey_data) {
-      const values = this.state.survey_data.getValues(this.state.data_control.category, this.state.data_control.demographic, this.state.data_control.source_url);
-      graphs = this.makeGraphs(values);
-    }
+    graphs = this.makeGraphs(this.state.data['reports']);
     return (
       <div className="app-flex-root">
         <div className="app-flex-content mdc-toolbar-fixed-adjust">
@@ -57,6 +69,8 @@ class App extends React.Component {
             <DataControl
               school1="Adams"
               onSchoolChange={this.handleSchoolChange}
+              surveys={this.state.surveys}
+              schools={this.state.schools}
               />
           </nav>
           <main className="app-main">
