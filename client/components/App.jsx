@@ -59,12 +59,13 @@ class App extends React.Component {
   calculateDiffScore(series) {
     let score = 0;
     const to_process = [...series];
+    const num_elements = to_process.length;
     let cur  = undefined;
     while ((cur = to_process.shift()) !== undefined) {
       to_process.forEach(e => {
         for (let i = 0; i < cur.data.length; i++) {
           const diff = cur.data[i] - e.data[i];
-          score += diff * diff;
+          score += (diff * diff)/num_elements;
         }
       });
     }
@@ -140,7 +141,7 @@ class App extends React.Component {
     const graphs = this.makeGraphs(this.state.reports);
     return (
       <main className="app-main">
-        <header className="mdc-toolbar login-bar">
+        <header className="mdc-toolbar top-bar">
           <div className="title-box">
             <h4 className="title">Seattle Public Schools Panorama Comparison Tool, 2019 data</h4>
           </div>
