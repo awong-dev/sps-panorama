@@ -53,12 +53,20 @@ class Histogram extends React.Component {
     clearTimeout(this.chartIsUpdating);
     this.chartIsUpdating = setTimeout(() => {
       const series = this.getSeries();
-      // TODO(awong): Delete later ones.
-      // TODO(awong): Add new ones.
+      // Remove extraneious series.
+      for (let i = this.chart.series.length - 1; i >= series.length; i--) {
+        this.chart.series[i].remove();
+      }
+
       series.forEach((s, idx) => {
         console.log(s, idx);
-        this.chart.series[idx].setData(s.data, true);
+        if (idx >= this.chart.series.length) {
+          this.chart.addSeries(s, false);
+        } else {
+          this.chart.series[idx].update(s, false);
+        }
       });
+      this.chart.redraw();
     }, 100);
   }
 
