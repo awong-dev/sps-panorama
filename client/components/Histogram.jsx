@@ -33,7 +33,8 @@ class Histogram extends React.Component {
 	   categories: this.props.data.categories
 	 },
 	 yAxis: {
-	   title: { text: this.props.data.ylabel }
+	   title: { text: this.props.data.ylabel },
+        max: 60
 	 },
 	 plotOptions: {
 	   column: {

@@ -53,13 +53,12 @@ class App extends React.Component {
     if (reports === null) {
       graphs.push(<div key="ruh-roh">Data loading. please wait.</div>);
     } else {
-      const data = {
-        xlabel: 'Rating',
-        ylabel: '%',
-        series: []
-      };
-      let question = "";
-      this.state.selected_subjects.forEach( school => {
+      // [ { question, data: {xlabel, ylabel, series: [a,b,c]}}
+      const all_question_data = {};
+
+      // Iterate over all selected schools and group data by question
+      // into all_question_data.
+      this.state.selected_subjects.forEach(school => {
         const report = reports[this.state.selected_report_type];
         if (!report) return;
         const survey = report[this.state.selected_survey];
@@ -67,23 +66,39 @@ class App extends React.Component {
         const school_data = survey[school];
         if (!school_data) return;
 
-        const questions = Object.keys(school_data);
-        question = questions[0];
-        const responses = school_data[question];
+        Object.keys(school_data).forEach(question => {
+          const responses = school_data[question];
 
-        // Calculate percents.
-        const total_respondents = responses.answer_respondents.reduce((a, n) => a+n, 0);
+          // Calculate percents.
+          const total_respondents = responses.answer_respondents.reduce((a, n) => a+n, 0);
 
-        // Set the data.
-        data.categories = responses.answers;
-        data.series.push({
-          name: school,
-          data: responses.answer_respondents.map(v => Math.round(v * 1000 / total_respondents)/10)
+          // Set the data.
+          let data = all_question_data[question];
+          if (data === undefined) {
+            data = {
+              categories: responses.answers,
+              xlabel: 'Rating',
+              ylabel: '%',
+              series: []
+            };
+
+            all_question_data[question] = data;
+          }
+          data.series.push({
+            name: school,
+            data: responses.answer_respondents.map(v => Math.round(v * 1000 / total_respondents)/10),
+            tooltip: {
+              footerFormat: `n = ${total_respondents}`
+            }
+          });
         });
       });
-      graphs.push(
-        <Histogram key="1" data={data} title={question} />
-      );
+
+      for (let [question, data] of Object.entries(all_question_data)) {
+        graphs.push(
+          <Histogram key={question} data={data} title={question} />
+        );
+      }
     }
     return graphs;
   }
