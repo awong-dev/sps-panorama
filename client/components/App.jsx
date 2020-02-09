@@ -155,7 +155,7 @@ class App extends React.Component {
         </header>
         <div className="">
           <section className="title-details">
-              Data taken from the <a href="https://www.seattleschools.org/district/district_scorecards/school_surveys">SPS Panorama</a> site. Graphs are in pecentages. Hover over data series for population size. When multiple series are selected, graphs are sorted to show questions with *most different* responses first.
+              Data taken from the <a href="https://www.seattleschools.org/district/district_scorecards/school_surveys">SPS Panorama</a> site. Graphs are in pecentages. Hover over data series for population size. When multiple series are selected, graphs are sorted to show questions with *most different* responses first. <a href="https://github.com/awong-dev/sps-panorama">Source code here.</a>
           </section>
           <div className="app-flex-root">
             <div className="app-flex-content">
